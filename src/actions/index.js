@@ -15,17 +15,26 @@ export const authError = (error) => {
 
 export const signOutUser = () => {
   localStorage.removeItem('token');
+  // returns unauthenticated user (removes token from local storage)
   return {
     type: USER_UNAUTHENTICATED,
   };
 };
 
 export const signIn = (email, password, history) => {
+  // signin runs from sign in component
   return (dispatch) => {
+    // post / dispatch signin info
     axios.post(`${ROOT_URL}/signin`, { email, password })
       .then(response => {
+        // save token to local storage - that's what the following line is doing
         localStorage.setItem('token', response.data.token);
+        // dispatch changes the state
         dispatch({
+          // don't need payload
+          // no security in client side
+          // all for user experience
+          // just flipping a flag for rendering
           type: USER_AUTHENTICATED,
         });
         history.push('/users');
@@ -54,3 +63,7 @@ export const getUsers = () => {
     });
   };
 };
+
+// export const signUpUsers = () => {
+//   const user = new models.User(req.body)
+// }

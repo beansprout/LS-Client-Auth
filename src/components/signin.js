@@ -4,18 +4,21 @@ import { signIn } from '../actions';
 import { connect } from 'react-redux';
 
 class SignIn extends Component {
+  // form data held by handleFormSubmit...
   handleFormSubmit({email, password}) {
+    // signin properties on component object
     this.props.signIn(email, password, this.props.history);
   }
-
+// if error
   renderAlert() {
     if (!this.props.error) return null;
     return (
       <h3>{this.props.error}</h3>
     );
   }
-
+// else render to display
   render() {
+
     const { handleSubmit } = this.props;
 
     return (
